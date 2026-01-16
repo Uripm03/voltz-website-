@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { FaPlus, FaEdit, FaTrash, FaImage, FaSave, FaTimes, FaLock, FaSignOutAlt } from 'react-icons/fa';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 
 interface Product {
   id: string;
@@ -57,43 +59,79 @@ export default function AdminPanel() {
     setPassword('');
   };
 
-  const loadProducts = () => {
-    const stored = localStorage.getItem('voltz_products');
-    if (stored) {
-      setProducts(JSON.parse(stored));
+  const loadProducts = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'products'));
+      const productsData: Product[] = [];
+      querySnapshot.forEach((doc) => {
+        productsData.push({ id: doc.id, ...doc.data() } as Product);
+      });
+      setProducts(productsData);
+    } catch (error) {
+      console.error('Error loading products:', error);
     }
   };
 
-  const saveProducts = (newProducts: Product[]) => {
-    localStorage.setItem('voltz_products', JSON.stringify(newProducts));
-    setProducts(newProducts);
+  const saveProduct = async (product: Product, isUpdate: boolean = false) => {
+    try {
+      if (isUpdate) {
+        const productRef = doc(db, 'products', product.id);
+        await updateDoc(productRef, {
+          name: product.name,
+          price: product.price,
+          category: product.category,
+          image: product.image
+        });
+      } else {
+        await addDoc(collection(db, 'products'), {
+          name: product.name,
+          price: product.price,
+          category: product.category,
+          image: product.image
+        });
+      }
+      await loadProducts();
+    } catch (error) {
+      console.error('Error saving product:', error);
+      alert('Error al guardar el producto');
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const deleteProduct = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, 'products', id));
+      await loadProducts();
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      alert('Error al eliminar el producto');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (editingProduct) {
-      const updated = products.map(p =>
-        p.id === editingProduct.id
-          ? { ...editingProduct, ...formData, image: imagePreview }
-          : p
-      );
-      saveProducts(updated);
-    } else {
-      const newProduct: Product = {
-        id: Date.now().toString(),
+      const updatedProduct: Product = {
+        ...editingProduct,
         ...formData,
         image: imagePreview,
       };
-      saveProducts([...products, newProduct]);
+      await saveProduct(updatedProduct, true);
+    } else {
+      const newProduct: Product = {
+        id: '', // Firebase will generate the ID
+        ...formData,
+        image: imagePreview,
+      };
+      await saveProduct(newProduct, false);
     }
 
     closeModal();
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('¿Estás seguro de eliminar este producto?')) {
-      saveProducts(products.filter(p => p.id !== id));
+      await deleteProduct(id);
     }
   };
 

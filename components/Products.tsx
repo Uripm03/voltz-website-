@@ -3,6 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp, FaShoppingCart, FaTimes } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
+import { db } from '@/lib/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 interface Product {
   id: string;
@@ -17,16 +19,21 @@ export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    // Load products from localStorage
-    const loadProducts = () => {
-      const stored = localStorage.getItem('voltz_products');
-      if (stored) {
-        const allProducts = JSON.parse(stored);
-        // Show only first 4 products as featured
-        setProducts(allProducts.slice(0, 4));
-      } else {
-        // Default sample products if none exist
-        const sampleProducts: Product[] = [
+    // Load products from Firebase
+    const loadProducts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'products'));
+        const productsData: Product[] = [];
+        querySnapshot.forEach((doc) => {
+          productsData.push({ id: doc.id, ...doc.data() } as Product);
+        });
+
+        if (productsData.length > 0) {
+          // Show only first 4 products as featured
+          setProducts(productsData.slice(0, 4));
+        } else {
+          // Default sample products if none exist
+          const sampleProducts: Product[] = [
           {
             id: '1',
             name: 'Laptop HP Core i5',
@@ -52,19 +59,14 @@ export default function Products() {
             category: 'Equipos',
           },
         ];
-        setProducts(sampleProducts);
+          setProducts(sampleProducts);
+        }
+      } catch (error) {
+        console.error('Error loading products:', error);
       }
     };
 
     loadProducts();
-
-    // Listen for storage changes
-    const handleStorageChange = () => {
-      loadProducts();
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const handleWhatsAppQuote = (product: Product) => {
