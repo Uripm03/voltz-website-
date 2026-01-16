@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { FaPlus, FaEdit, FaTrash, FaImage, FaSave, FaTimes, FaLock, FaSignOutAlt } from 'react-icons/fa';
-import { db } from '@/lib/firebase';
+import { db, storage } from '@/lib/firebase';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
 interface Product {
   id: string;
@@ -72,28 +73,57 @@ export default function AdminPanel() {
     }
   };
 
-  const saveProduct = async (product: Product, isUpdate: boolean = false) => {
+  const uploadImage = async (imageData: string, productId: string): Promise<string> => {
     try {
+      // Convert base64 to blob
+      const response = await fetch(imageData);
+      const blob = await response.blob();
+
+      // Create a reference to the file in Storage
+      const imageRef = ref(storage, `products/${productId}_${Date.now()}.jpg`);
+
+      // Upload the file
+      await uploadBytes(imageRef, blob);
+
+      // Get the download URL
+      const downloadURL = await getDownloadURL(imageRef);
+      return downloadURL;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
+
+  const saveProduct = async (product: Product, isUpdate: boolean = false, imageData?: string) => {
+    try {
+      let imageUrl = product.image || '';
+
+      // Upload new image if provided
+      if (imageData && imageData.startsWith('data:')) {
+        const productId = product.id || Date.now().toString();
+        imageUrl = await uploadImage(imageData, productId);
+      }
+
       if (isUpdate) {
         const productRef = doc(db, 'products', product.id);
         await updateDoc(productRef, {
           name: product.name,
           price: product.price,
           category: product.category,
-          image: product.image
+          image: imageUrl
         });
       } else {
         await addDoc(collection(db, 'products'), {
           name: product.name,
           price: product.price,
           category: product.category,
-          image: product.image
+          image: imageUrl
         });
       }
       await loadProducts();
     } catch (error) {
       console.error('Error saving product:', error);
-      alert('Error al guardar el producto');
+      alert('Error al guardar el producto. Intenta con una imagen más pequeña.');
     }
   };
 
@@ -114,16 +144,16 @@ export default function AdminPanel() {
       const updatedProduct: Product = {
         ...editingProduct,
         ...formData,
-        image: imagePreview,
+        image: editingProduct.image, // Keep existing image URL
       };
-      await saveProduct(updatedProduct, true);
+      await saveProduct(updatedProduct, true, imagePreview);
     } else {
       const newProduct: Product = {
         id: '', // Firebase will generate the ID
         ...formData,
-        image: imagePreview,
+        image: '',
       };
-      await saveProduct(newProduct, false);
+      await saveProduct(newProduct, false, imagePreview);
     }
 
     closeModal();
