@@ -3,24 +3,52 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #1ca4b8;
+  --primary-dark: #158599;
+  --secondary: #1a1a1a;
+  --accent: #24c9de;
+  --hero-start: #1ca4b8;
+  --hero-end: #0d7a8c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-hero-start: var(--hero-start);
+  --color-hero-end: var(--hero-end);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #1ca4b8 0%, #0d7a8c 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #1ca4b8 0%, #24c9de 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Logo con fondo semi-transparente para visibilidad */
+.logo-with-bg {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 4px;
+  border-radius: 8px;
 }
