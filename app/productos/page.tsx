@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { FaWhatsapp, FaShoppingCart, FaSearch, FaFilter } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { db } from '@/lib/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 interface Product {
   id: string;
@@ -29,35 +31,35 @@ export default function ProductosPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Load products from localStorage
-    const loadProducts = () => {
-      const stored = localStorage.getItem('voltz_products');
-      if (stored) {
-        const allProducts = JSON.parse(stored);
-        setProducts(allProducts);
-        setFilteredProducts(allProducts);
-      } else {
-        // Default sample products
-        const sampleProducts: Product[] = [
-          { id: '1', name: 'Laptop HP Core i5', price: '$12,500', category: 'Computación' },
-          { id: '2', name: 'Monitor LED 24"', price: '$3,200', category: 'Computación' },
-          { id: '3', name: 'Cámara IP 1080p', price: '$1,500', category: 'CCTV y Seguridad' },
-          { id: '4', name: 'UPS 1000VA', price: '$2,800', category: 'Equipos' },
-        ];
-        setProducts(sampleProducts);
-        setFilteredProducts(sampleProducts);
+    // Load products from Firebase
+    const loadProducts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'products'));
+        const productsData: Product[] = [];
+        querySnapshot.forEach((doc) => {
+          productsData.push({ id: doc.id, ...doc.data() } as Product);
+        });
+
+        if (productsData.length > 0) {
+          setProducts(productsData);
+          setFilteredProducts(productsData);
+        } else {
+          // Default sample products if none exist
+          const sampleProducts: Product[] = [
+            { id: '1', name: 'Laptop HP Core i5', price: '$12,500', category: 'Computación' },
+            { id: '2', name: 'Monitor LED 24"', price: '$3,200', category: 'Computación' },
+            { id: '3', name: 'Cámara IP 1080p', price: '$1,500', category: 'CCTV y Seguridad' },
+            { id: '4', name: 'UPS 1000VA', price: '$2,800', category: 'Equipos' },
+          ];
+          setProducts(sampleProducts);
+          setFilteredProducts(sampleProducts);
+        }
+      } catch (error) {
+        console.error('Error loading products:', error);
       }
     };
 
     loadProducts();
-
-    // Listen for storage changes
-    const handleStorageChange = () => {
-      loadProducts();
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   // Filter products
