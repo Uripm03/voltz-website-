@@ -34,17 +34,20 @@ export default function ProductosPage() {
     // Load products from Firebase
     const loadProducts = async () => {
       try {
+        console.log('[ProductosPage] Loading from Firebase...');
         const querySnapshot = await getDocs(collection(db, 'products'));
         const productsData: Product[] = [];
         querySnapshot.forEach((doc) => {
           productsData.push({ id: doc.id, ...doc.data() } as Product);
         });
+        console.log('[ProductosPage] Loaded', productsData.length, 'products from Firebase');
 
         if (productsData.length > 0) {
           setProducts(productsData);
           setFilteredProducts(productsData);
         } else {
           // Default sample products if none exist
+          console.log('[ProductosPage] No products in Firebase, using samples');
           const sampleProducts: Product[] = [
             { id: '1', name: 'Laptop HP Core i5', price: '$12,500', category: 'Computación' },
             { id: '2', name: 'Monitor LED 24"', price: '$3,200', category: 'Computación' },

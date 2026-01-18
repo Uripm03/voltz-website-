@@ -22,17 +22,20 @@ export default function Products() {
     // Load products from Firebase
     const loadProducts = async () => {
       try {
+        console.log('[Products] Loading from Firebase...');
         const querySnapshot = await getDocs(collection(db, 'products'));
         const productsData: Product[] = [];
         querySnapshot.forEach((doc) => {
           productsData.push({ id: doc.id, ...doc.data() } as Product);
         });
+        console.log('[Products] Loaded', productsData.length, 'products from Firebase');
 
         if (productsData.length > 0) {
           // Show only first 4 products as featured
           setProducts(productsData.slice(0, 4));
         } else {
           // Default sample products if none exist
+          console.log('[Products] No products in Firebase, using samples');
           const sampleProducts: Product[] = [
           {
             id: '1',
