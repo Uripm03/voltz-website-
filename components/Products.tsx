@@ -1,5 +1,4 @@
 'use client';
-// Force deployment with Firebase integration
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp, FaShoppingCart, FaTimes } from 'react-icons/fa';
@@ -90,7 +89,7 @@ export default function Products() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            🔥 PRODUCTOS FIREBASE 🔥
+            Productos Destacados
           </h2>
           <p className="text-xl text-gray-600">
             Equipos de cómputo, iluminación, CCTV y más
