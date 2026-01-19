@@ -1,4 +1,5 @@
 'use client';
+// Force deployment with Firebase integration
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp, FaShoppingCart, FaTimes } from 'react-icons/fa';
