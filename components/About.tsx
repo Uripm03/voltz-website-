@@ -42,15 +42,7 @@ export default function About() {
             >
               QUIÉNES SOMOS
             </motion.p>
-            <motion.h2
-              className="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              Nos enfocamos en aportar valor y resolver desafíos empresariales mediante la entrega de servicios y soluciones de seguridad modernas
-            </motion.h2>
+            
             <motion.p
               className="text-lg text-gray-600 mb-8 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
@@ -58,7 +50,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-            En Sistemas Integrales Voltz nos enfocamos en aportar valor a las empresas, resolviendo sus desafíos mediante la implementación de servicios y soluciones de seguridad modernas, confiables y eficientes.
+            En <strong>Sistemas Integrales Voltz</strong> nos enfocamos en aportar valor a las empresas, resolviendo sus desafíos mediante la implementación de servicios y soluciones de seguridad modernas, confiables y eficientes.
             </motion.p>
             <motion.p
               className="text-lg text-gray-600 mb-8 leading-relaxed"

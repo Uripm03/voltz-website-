@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FaWhatsapp, FaShoppingCart, FaSearch, FaFilter } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaWhatsapp, FaShoppingCart, FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { db } from '@/lib/firebase';
@@ -29,6 +29,7 @@ export default function ProductosPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     // Load products from Firebase
@@ -260,6 +261,14 @@ export default function ProductosPage() {
                       <FaWhatsapp className="text-xl" />
                       Cotizar por WhatsApp
                     </motion.button>
+                    <motion.button
+                      onClick={() => setSelectedProduct(product)}
+                      className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-semibold transition-colors"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Ver Detalles
+                    </motion.button>
                   </div>
                 </div>
               </motion.div>
@@ -330,6 +339,116 @@ export default function ProductosPage() {
           </motion.div>
         </div>
       </div>
+
+      {/* Product Detail Modal */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProduct(null)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition-colors z-10"
+              >
+                <FaTimes className="text-xl text-gray-700" />
+              </button>
+
+              {/* Product Image */}
+              <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-8">
+                {selectedProduct.image ? (
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.name}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <FaShoppingCart className="text-8xl text-gray-400" />
+                )}
+                <div className="absolute top-4 left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  {selectedProduct.category}
+                </div>
+              </div>
+
+              {/* Product Info */}
+              <div className="p-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  {selectedProduct.name}
+                </h2>
+
+                {selectedProduct.price && (
+                  <div className="text-4xl font-bold text-primary mb-6">
+                    {selectedProduct.price}
+                    <span className="text-lg text-gray-500 font-normal ml-2">MXN</span>
+                  </div>
+                )}
+
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Descripción</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Producto de alta calidad disponible en Sistemas Integrales VOLTZ.
+                    Contamos con las mejores marcas y garantía en todos nuestros productos.
+                  </p>
+                </div>
+
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Características</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      Garantía del fabricante
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      Instalación profesional disponible
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      Soporte técnico especializado
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      Precios competitivos
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <motion.button
+                    onClick={() => handleWhatsAppQuote(selectedProduct)}
+                    className="flex-1 bg-green-500 hover:bg-green-600 text-white py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <FaWhatsapp className="text-2xl" />
+                    Cotizar por WhatsApp
+                  </motion.button>
+                  <motion.button
+                    onClick={() => setSelectedProduct(null)}
+                    className="px-6 bg-gray-200 hover:bg-gray-300 text-gray-700 py-4 rounded-lg font-semibold text-lg transition-colors"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Cerrar
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

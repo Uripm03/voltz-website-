@@ -13,7 +13,7 @@ const mainServices = [
   {
     title: 'VENTA DE EQUIPO',
     description: 'Ofrecemos una amplia gama de equipos de seguridad, como cámaras, alarmas y sistemas de control de acceso. Todos nuestros productos cumplen con estándares de calidad y tecnología de punta.',
-    image: '/assets/brands/ventas.png',
+    image: '/assets/brands/equipo.jpeg',
     gradient: 'from-blue-500 to-purple-500',
   },
 ];

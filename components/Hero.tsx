@@ -9,7 +9,7 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="/assets/brands/fondovoltz.jpeg"
+          src="/assets/brands/fondoo.jpeg"
           alt="Background"
           className="w-full h-full object-cover object-top opacity-60"
         />

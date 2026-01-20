@@ -17,7 +17,7 @@ const projects = [
     id: 2,
     image: '/assets/brands/trabajo1.jpeg',
     title: 'Instalación de Sistema de Seguridad',
-    description: 'Instalación de cámaras de vigilancia con monitoreo remoto para empresa.',
+    description: 'Instalación de cámaras de vigilancia con monitoreo remoto.',
   
 
   },
@@ -25,14 +25,14 @@ const projects = [
   {
     id: 4,
     image: '/assets/brands/trabajo2.jpeg',
-    title: 'Instalación de Sistema de Seguridad',
-    description: 'Cámaras de vigilancia para empresas y negocios.',
+    title: 'Instalación de tubería conduit y charofil',
+    description: 'Canalización para empresas y negocios.',
   },
   {
     id: 5,
     image: '/assets/brands/trabajo3.jpeg',
     title: 'Instalación de Sistema de Seguridad',
-    description: 'Cámaras de seguridad con acceso desde celular.',
+    description: 'Instalación de Sistema de alarma con acceso remoto',
   },
    {
     id: 6,
