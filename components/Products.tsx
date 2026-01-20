@@ -171,20 +171,22 @@ export default function Products() {
                 <h3 className="text-sm md:text-base font-bold text-gray-900 mb-1.5 line-clamp-2">
                   {product.name}
                 </h3>
-                <motion.div
-                  className="text-lg md:text-xl font-bold text-primary mb-2"
-                  animate={{
-                    textShadow: [
-                      "0 0 0px rgba(28, 164, 184, 0)",
-                      "0 0 10px rgba(28, 164, 184, 0.5)",
-                      "0 0 0px rgba(28, 164, 184, 0)"
-                    ]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  {product.price}
-                  <span className="text-xs text-gray-500 font-normal ml-1">MXN</span>
-                </motion.div>
+                {product.price && (
+                  <motion.div
+                    className="text-lg md:text-xl font-bold text-primary mb-2"
+                    animate={{
+                      textShadow: [
+                        "0 0 0px rgba(28, 164, 184, 0)",
+                        "0 0 10px rgba(28, 164, 184, 0.5)",
+                        "0 0 0px rgba(28, 164, 184, 0)"
+                      ]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    {product.price}
+                    <span className="text-xs text-gray-500 font-normal ml-1">MXN</span>
+                  </motion.div>
+                )}
 
                 {/* Actions */}
                 <div className="space-y-1.5">
@@ -275,10 +277,12 @@ export default function Products() {
                   {selectedProduct.name}
                 </h2>
 
-                <div className="text-4xl font-bold text-primary mb-6">
-                  {selectedProduct.price}
-                  <span className="text-lg text-gray-500 font-normal ml-2">MXN</span>
-                </div>
+                {selectedProduct.price && (
+                  <div className="text-4xl font-bold text-primary mb-6">
+                    {selectedProduct.price}
+                    <span className="text-lg text-gray-500 font-normal ml-2">MXN</span>
+                  </div>
+                )}
 
                 <div className="mb-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">Descripción</h3>

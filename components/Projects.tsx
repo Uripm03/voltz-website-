@@ -7,30 +7,39 @@ import { useState } from 'react';
 const projects = [
   {
     id: 1,
-    image: '/assets/brands/trabajo1.jpeg',
-    title: 'Sistema de Iluminación',
-    description: 'Sistema de luces inteligentes',
+    image: '/assets/brands/trabajo5.jpeg',
+     title: 'Red de Voz y Datos',
+   description: 'Cableado estructurado para oficinas',
+    
 
   },
   {
     id: 2,
-    image: '/assets/brands/trabajo2.jpeg',
+    image: '/assets/brands/trabajo1.jpeg',
     title: 'Instalación de Sistema de Seguridad',
-    description: 'Proyecto completo Control de acceso para empresa',
+    description: 'Instalación de cámaras de vigilancia con monitoreo remoto para empresa.',
+  
 
   },
   
   {
     id: 4,
-    image: '/assets/brands/trabajo4jpeg.jpeg',
-    title: 'Cerca Eléctrica Perimetral',
-    description: 'Seguridad perimetral residencial',
+    image: '/assets/brands/trabajo2.jpeg',
+    title: 'Instalación de Sistema de Seguridad',
+    description: 'Cámaras de vigilancia para empresas y negocios.',
   },
   {
     id: 5,
-    image: '/assets/brands/trabajo5.jpeg',
-    title: 'Red de Voz y Datos',
-    description: 'Cableado estructurado para oficinas',
+    image: '/assets/brands/trabajo3.jpeg',
+    title: 'Instalación de Sistema de Seguridad',
+    description: 'Cámaras de seguridad con acceso desde celular.',
+  },
+   {
+    id: 6,
+    image: '/assets/brands/trabajo6.jpeg',
+    title: 'Instalación de Sistema de Seguridad',
+    description: 'Proyecto completo Control de acceso para empresa',
+    
   },
 ];
 

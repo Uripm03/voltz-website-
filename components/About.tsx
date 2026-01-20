@@ -58,7 +58,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-              En Sistemas Integrales Voltz, nos especializamos en ofrecer soluciones de seguridad que combinan tecnología avanzada y un equipo altamente capacitado para proteger lo que más valoras.
+            En Sistemas Integrales Voltz nos enfocamos en aportar valor a las empresas, resolviendo sus desafíos mediante la implementación de servicios y soluciones de seguridad modernas, confiables y eficientes.
             </motion.p>
             <motion.p
               className="text-lg text-gray-600 mb-8 leading-relaxed"

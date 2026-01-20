@@ -232,20 +232,22 @@ export default function ProductosPage() {
                   <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
                     {product.name}
                   </h3>
-                  <motion.div
-                    className="text-2xl font-bold text-primary mb-4"
-                    animate={{
-                      textShadow: [
-                        "0 0 0px rgba(28, 164, 184, 0)",
-                        "0 0 10px rgba(28, 164, 184, 0.5)",
-                        "0 0 0px rgba(28, 164, 184, 0)"
-                      ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    {product.price}
-                    <span className="text-sm text-gray-500 font-normal ml-1">MXN</span>
-                  </motion.div>
+                  {product.price && (
+                    <motion.div
+                      className="text-2xl font-bold text-primary mb-4"
+                      animate={{
+                        textShadow: [
+                          "0 0 0px rgba(28, 164, 184, 0)",
+                          "0 0 10px rgba(28, 164, 184, 0.5)",
+                          "0 0 0px rgba(28, 164, 184, 0)"
+                        ]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      {product.price}
+                      <span className="text-sm text-gray-500 font-normal ml-1">MXN</span>
+                    </motion.div>
+                  )}
 
                   {/* Actions */}
                   <div className="space-y-2">

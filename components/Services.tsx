@@ -7,13 +7,13 @@ const mainServices = [
   {
     title: 'SEGURIDAD ELECTRÓNICA Y AUTOMATIZACIÓN',
     description: 'Proporcionamos servicios personalizados para instalar, mantener y optimizar sistemas de seguridad electrónica. Nuestro equipo garantiza soluciones efectivas para hogares y negocios.',
-    image: '/assets/brands/instalacion.jpg',
+    image: '/assets/brands/seguridadelect.jpeg',
     gradient: 'from-cyan-500 to-blue-500',
   },
   {
     title: 'VENTA DE EQUIPO',
     description: 'Ofrecemos una amplia gama de equipos de seguridad, como cámaras, alarmas y sistemas de control de acceso. Todos nuestros productos cumplen con estándares de calidad y tecnología de punta.',
-    image: '/assets/brands/venta.jpg',
+    image: '/assets/brands/ventas.png',
     gradient: 'from-blue-500 to-purple-500',
   },
 ];
@@ -214,19 +214,22 @@ export default function Services() {
                 </motion.div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
-                <motion.button
-                  className="mt-4 text-primary font-semibold hover:text-primary-dark transition-colors flex items-center gap-1 group/btn"
+                <motion.div
+                  onClick={() => {
+                    document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="mt-4 text-primary font-semibold hover:text-primary-dark transition-colors flex items-center gap-1 group/btn cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  LEER MÁS
+                  Solicitar Cotización
                   <motion.span
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    +
+                    →
                   </motion.span>
-                </motion.button>
+                </motion.div>
               </div>
             </motion.div>
           ))}

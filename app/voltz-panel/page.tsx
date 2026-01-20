@@ -319,9 +319,13 @@ export default function AdminPanel() {
                     <h3 className="font-bold text-lg text-gray-900 mb-1 line-clamp-2">
                       {product.name}
                     </h3>
-                    <p className="text-2xl font-bold text-primary mb-4">
-                      {product.price}
-                    </p>
+                    {product.price ? (
+                      <p className="text-2xl font-bold text-primary mb-4">
+                        {product.price}
+                      </p>
+                    ) : (
+                      <p className="text-sm text-gray-500 italic mb-4">Sin precio</p>
+                    )}
 
                     {/* Actions */}
                     <div className="flex gap-2">
@@ -417,15 +421,14 @@ export default function AdminPanel() {
               {/* Price */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Precio *
+                  Precio (Opcional)
                 </label>
                 <input
                   type="text"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Ej: $12,500"
+                  placeholder="Ej: $12,500 (Dejar vacío si no deseas mostrar precio)"
                 />
               </div>
 

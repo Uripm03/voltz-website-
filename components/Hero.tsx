@@ -9,9 +9,9 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="/assets/brands/fondop.png"
+          src="/assets/brands/fondovoltz.jpeg"
           alt="Background"
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover object-top opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-primary-dark/50"></div>
       </div>
