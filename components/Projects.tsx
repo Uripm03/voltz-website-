@@ -8,7 +8,7 @@ const projects = [
   {
     id: 1,
     image: '/assets/brands/trabajo5.jpeg',
-     title: 'Red de Voz y Datos',
+     title: 'Red de Voz y Datos.',
    description: 'Cableado estructurado para oficinas',
     
 
@@ -16,7 +16,7 @@ const projects = [
   {
     id: 2,
     image: '/assets/brands/trabajo1.jpeg',
-    title: 'Instalación de Sistema de Seguridad',
+    title: 'Instalación de Sistema de seguridad.',
     description: 'Instalación de cámaras de vigilancia con monitoreo remoto.',
   
 
@@ -31,14 +31,14 @@ const projects = [
   {
     id: 5,
     image: '/assets/brands/trabajo3.jpeg',
-    title: 'Instalación de Sistema de Seguridad',
-    description: 'Instalación de Sistema de alarma con acceso remoto',
+    title: 'Instalación de Sistema de alarma',
+    description: 'Con acceso remoto',
   },
    {
     id: 6,
     image: '/assets/brands/trabajo6.jpeg',
     title: 'Instalación de Sistema de Seguridad',
-    description: 'Proyecto completo Control de acceso para empresa',
+    description: 'Proyecto completo Control de acceso',
     
   },
 ];

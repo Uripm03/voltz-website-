@@ -18,7 +18,7 @@ const faqs = [
   {
     id: 3,
     question: '¿Ofrecen garantía en sus productos y servicios?',
-    answer: 'Sí, todos nuestros productos cuentan con garantía del fabricante que va de 1 a 3 años dependiendo del equipo. Además, nuestros servicios de instalación tienen garantía de 1 año en mano de obra.'
+    answer: 'Sí, todos nuestros productos cuentan con garantía del fabricante que va de 1 a 3 años dependiendo del equipo.'
   },
   {
     id: 4,

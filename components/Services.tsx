@@ -16,7 +16,7 @@ const mainServices = [
     image: '/assets/brands/equipo.jpeg',
     gradient: 'from-blue-500 to-purple-500',
   },
-];
+];  
 
 const detailedServices = [
   {
