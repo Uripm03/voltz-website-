@@ -1,8 +1,8 @@
 'use client';
 
+import React, { useState, type FormEvent, type ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaFacebook, FaInstagram } from 'react-icons/fa';
-import { useState } from 'react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ export default function Contact() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const phoneNumber = '7731365230';
     const message = `Hola, soy ${formData.name}.\nEmail: ${formData.email}\nTeléfono: ${formData.phone}\n\nMensaje: ${formData.message}`;
@@ -20,7 +20,7 @@ export default function Contact() {
     window.open(whatsappUrl, '_blank');
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -178,8 +178,8 @@ export default function Contact() {
                         >
                           <FaEnvelope className="text-xl flex-shrink-0" />
                         </motion.div>
-                        <a href="mailto:cotizaciones@sistemasintegralesvoltz.com" className="hover:text-accent transition-colors break-all">
-                          cotizaciones@sistemasintegralesvoltz.com
+                        <a href="mailto:contacto@sivoltz.com" className="hover:text-accent transition-colors break-all">
+                          contacto@sivoltz.com
                         </a>
                       </motion.div>
                     </div>
