@@ -104,8 +104,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:cotizaciones@sistemasintegralesvoltz.com" className="hover:text-primary transition-colors break-all">
-                  cotizaciones@sistemasintegralesvoltz.com
+                <a href="mailto:contacto@sivoltz.com" className="hover:text-primary transition-colors break-all">
+                  contacto@sivoltz.com
                 </a>
               </li>
             </ul>
